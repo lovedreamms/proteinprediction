@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 
-df = pd.read_excel('data/train.xlsx')
+df = pd.read_excel('data/test.xlsx')
 print(df.head())
 training_x = df['sequence']
 training_y = df['score\n( %)']
@@ -15,4 +15,4 @@ for sample, efficiency in zip(training_x, training_y):
     indexed_sequence.append(efficiency)
     indexed_data.append(indexed_sequence)
 df = pd.DataFrame(indexed_data)
-df.to_csv('data/1.csv')
+df.to_csv('data/test.csv')
