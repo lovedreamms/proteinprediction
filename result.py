@@ -19,8 +19,9 @@ data = pd.read_csv('data/test.csv').values
 data = scaler2.fit_transform(data)
 X = data[:, 1:-1]  # 特征
 y = data[:, -1]   # 标签
+X = X.reshape(X.shape[0], X.shape[1], 1)
 with keras.utils.custom_object_scope({'r_squared': r_squared}):
-    model = keras.models.load_model('model3342.h5') 
+    model = keras.models.load_model('model4086.h5') 
 y = model.predict(X) 
 num_features = 36
 test_predict_extended = np.zeros((len(y), num_features))
@@ -29,3 +30,4 @@ test_predict_inversed = scaler1.inverse_transform(test_predict_extended)[:, -1]
 data = pd.read_excel('data/test.xlsx')
 data['score\n( %)'] = test_predict_inversed
 data.to_excel('data/result.xlsx', index=False)
+print('Done!')
