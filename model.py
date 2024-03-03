@@ -74,11 +74,12 @@ model.add(LSTM(8, return_sequences=False,kernel_regularizer=l2(0.01),kernel_init
 model.add(BatchNormalization())
 model.add(Dense(32, kernel_regularizer=l2(0.01),kernel_initializer='he_uniform'))  
 model.add(BatchNormalization())
-model.add(Dense(16, kernel_regularizer=l2(0.01),kernel_initializer='he_uniform')) 
+model.add(Dense(32, kernel_regularizer=l2(0.01),kernel_initializer='he_uniform')) 
 model.add(BatchNormalization())
 model.add(Dense(1))
-model.compile(optimizer=Adam(learning_rate=0.01), loss=r_squared)
-history = model.fit(X_train, y_train, validation_data=(X_test, y_test), batch_size=64, epochs=500, verbose=1,callbacks=[TestModelCallback(), LearningRateScheduler(scheduler)], use_multiprocessing=True, workers=8)
+# 使用均方误差作为loss函数
+model.compile(optimizer=Adam(learning_rate=0.0001), loss='mean_squared_error')
+history = model.fit(X_train, y_train, validation_data=(X_test, y_test), batch_size=256, epochs=500, verbose=1,callbacks=[TestModelCallback(), LearningRateScheduler(scheduler)], use_multiprocessing=True, workers=8)
 train_predict = model.predict(X_train)
 num_features = 36
 train_predict_extended = np.zeros((len(train_predict), num_features))
